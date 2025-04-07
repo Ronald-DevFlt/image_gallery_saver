@@ -25,6 +25,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    // 👇 Agregamos la línea namespace para cumplir con Gradle 7.2+
+    namespace "com.example.imagegallerysaver"
+
     compileSdkVersion 30
 
     sourceSets {
