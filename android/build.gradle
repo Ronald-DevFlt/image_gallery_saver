@@ -7,9 +7,7 @@ buildscript {
         google()
         mavenCentral()
     }
-
     dependencies {
-        // Ajusta si quieres usar com.android.tools.build:gradle:7.3.0 u otra
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -26,10 +24,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    // 👇 Requerido para Gradle 7.2+:
+    // Necesario para Gradle 7.2+:
     namespace "com.example.imagegallerysaver"
 
-    // Igual a tu app: compileSdk 34 o 33
     compileSdkVersion 34
 
     defaultConfig {
@@ -37,12 +34,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // Unificamos la versión de Java y Kotlin a 17
+    // --- Habilitamos la JVM Toolchain y unificamos a 17 ---
     compileOptions {
+        // Aunque lo de abajo se ignora un poco al usar toolchain, lo dejamos igual
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    // NUEVO: Forzamos el uso del JDK 17 con la nueva sintaxis
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
     kotlinOptions {
+        // Asegura que Kotlin use 17 también
         jvmTarget = "17"
     }
 
@@ -56,6 +63,6 @@ android {
 }
 
 dependencies {
-    // Usa la misma versión Kotlin que tu proyecto, si hace falta
+    // Usa la misma versión de Kotlin que tu proyecto (1.7.10 o la que necesites)
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
